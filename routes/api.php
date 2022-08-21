@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/createTicket', [TestController::class, 'createTicket']);
+
+Route::get('/createTicketUser',[TestController::class,'createTicketUser']);
+
+Route::get('/getConfirmedTickets',[TestController::class,'getConfirmedTickets']);
+
+Route::get('/getAcceptedTickets',[TestController::class,'getAcceptedTickets']);
+
+Route::get('/addTask',[TestController::class,'addTask']);
+
+Route::get('/addSubTask',[TestController::class,'addSubTask']);

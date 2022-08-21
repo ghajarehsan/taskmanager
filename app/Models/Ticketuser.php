@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Ticketuser extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+
+        'level',
+        'ticket_id',
+        'user_id',
+        'department_id',
+        'status_id',
+    ];
+
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class);
+    }
+
 }

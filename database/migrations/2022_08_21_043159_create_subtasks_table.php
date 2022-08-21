@@ -17,17 +17,17 @@ class CreateSubtasksTable extends Migration
             $table->id();
             $table->string('subject');
 
-            $table->tinyInteger('status')->comment('0:toDo,1:doing,2:done,3:block');
+            $table->tinyInteger('status')->default(0)->comment('0:toDo,1:doing,2:done,3:block');
 
             $table->tinyInteger('priority')->comment('highest is:5,lowest:1');
 
-            $table->date('deadline');
+            $table->dateTime('deadline');
 
-            $table->tinyInteger('privilege');
+            $table->tinyInteger('privilege')->comment('0:personal,1:admin,2:department,3:public');
 
-            $table->boolean('seen');
+            $table->dateTime('seen')->nullable();
 
-            $table->time('worklog');
+            $table->time('worklog')->nullable();
 
             $table->bigInteger('ticket_id')->unsigned();
 

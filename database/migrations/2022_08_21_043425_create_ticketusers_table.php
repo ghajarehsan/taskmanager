@@ -22,11 +22,11 @@ class CreateTicketusersTable extends Migration
 
             $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
 
-            $table->bigInteger('user_id')->unsigned()->comment('destination user_id');
+            $table->bigInteger('user_id')->unsigned()->comment('destination');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->bigInteger('department_id')->unsigned()->comment('source department_id');
+            $table->bigInteger('department_id')->unsigned()->comment('destination');
 
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
 
