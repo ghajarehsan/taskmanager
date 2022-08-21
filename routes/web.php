@@ -14,19 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-//$table->string('name');
-//
-//$table->string('type');
-//
-//$table->integer('duration')->nullable();
-//
-//$table->integer('size');
-//
-//$table->boolean('is_private')->default(0)->comment('0:public,1:private');
-//
-//$table->bigInteger('fileable_id')->unsigned();
-//
-//$table->string('fileable_type');
 
 Route::get('/', function () {
     return view('welcome');
