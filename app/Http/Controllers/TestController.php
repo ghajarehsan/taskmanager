@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departmentlevel;
 use App\Models\Subtask;
 use App\Models\Task;
 use App\Models\Ticket;
+use App\Models\Ticketlevel;
 use App\Models\Ticketuser;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,50 +19,46 @@ class TestController extends Controller
         Ticket::create([
             'subject' => 'fix network',
             'description' => 'fix it fast',
-            'user_id' => 2,
-            'department_id' => 2
-        ]);
-    }
-
-    public function createTicketUser()
-    {
-
-        Ticketuser::create([
-
-            'level' => $this->getTicketUserLevel(),
-
-            'ticket_id' => 2,
-
-            'user_id' => 4,
-
+            'user_id' => 3,
             'department_id' => 1,
+            'status_id' => 1
+        ]);
+    }
 
-            'status_id' => 2
+    public function createTicketLevel()
+    {
+        Ticketlevel::create([
+            'level' => 1,
+            'ticket_id' => 1,
+            'department_id' => 2,
         ]);
 
     }
 
-    private function getTicketUserLevel()
+    public function createDepartmentLevel()
     {
 
-        $level = Ticketuser::where('ticket_id', 2)
-            ->where('user_id', 2)
-            ->where('department_id', 2)
-            ->get()->last();
-
-        return $level ? $level->level + 1 : 1;
+        Departmentlevel::create([
+            'level' => 1,
+            'ticket_level_id' => 1,
+            'user_id' => 4
+        ]);
 
     }
 
-    public function getConfirmedTickets()
+    public function getCreatedTickets()
     {
-
-        $ticket = Ticketuser::where('status_id', 2)
-            ->where('department_id', 1)
+        $ticket = Ticket::where('status_id', 1)
+            ->with('ticketLevels', function ($ticketLevel) {
+                $ticketLevel->with('departmentLevels', function ($depLevel) {
+                    $depLevel->with('tasks', function ($task) {
+                        $task->with('subTasks');
+                    });
+                });
+            })
             ->get();
 
-        dd($ticket);
-
+        return $ticket;
     }
 
     public function getAcceptedTickets()
@@ -84,13 +82,13 @@ class TestController extends Controller
     {
         Task::create([
             'subject' => 'fix speed',
-            'status' => 0,
+            'state' => 0,
             'priority' => 1,
             'deadline' => '2022-08-17 05:16:17',
             'privilege' => 3,
-            'worklog' => '29:24:00',
-            'ticket_id' => 2,
-            'user_id' => 2
+            'start_time' => '2022-08-17 05:16:17',
+            'end_time' => '2022-08-17 05:16:17',
+            'department_level_id' => 1
         ]);
     }
 
@@ -103,11 +101,13 @@ class TestController extends Controller
             'priority' => 1,
             'deadline' => '2022-08-17 07:00:00',
             'privilege' => 3,
-            'ticket_id' => 2,
+            'start_time' => '2022-08-17 07:00:00',
+            'end_time' => '2022-08-17 07:00:00',
             'user_id' => 3,
             'task_id' => 1
         ]);
 
     }
+
 
 }

@@ -9,15 +9,14 @@ class Subtask extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
+    protected $fillable = [
         'subject',
         'status',
         'priority',
         'deadline',
         'privilege',
-        'seen',
-        'worklog',
-        'ticket_id',
+        'start_time',
+        'end_time',
         'user_id',
         'task_id'
     ];

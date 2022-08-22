@@ -15,10 +15,9 @@ class Task extends Model
         'priority',
         'deadline',
         'privilege',
-        'seen',
-        'worklog',
-        'ticket_id',
-        'user_id'
+        'start_time',
+        'end_time',
+        'department_level_id',
     ];
 
     public function subTasks()

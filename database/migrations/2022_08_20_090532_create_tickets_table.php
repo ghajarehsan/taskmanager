@@ -20,8 +20,6 @@ class CreateTicketsTable extends Migration
 
             $table->string('description');
 
-            $table->boolean('seen')->default(0);
-
             $table->bigInteger('user_id')->unsigned()->comment('source');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -29,6 +27,10 @@ class CreateTicketsTable extends Migration
             $table->bigInteger('department_id')->unsigned()->comment('source');
 
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
+
+            $table->bigInteger('status_id')->unsigned();
+
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
 
             $table->timestamps();
         });

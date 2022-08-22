@@ -12,19 +12,14 @@ class Ticket extends Model
     protected $fillable = [
         'subject',
         'description',
-        'seen',
         'user_id',
-        'department_id'
+        'department_id',
+        'status_id'
     ];
 
-    public function tasks()
+    public function ticketLevels()
     {
-        return $this->hasMany(Task::class);
-    }
-
-    public function ticketusers()
-    {
-        return $this->hasMany(Ticketuser::class);
+        return $this->hasMany(Ticketlevel::class);
     }
 
 
