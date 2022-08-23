@@ -18,9 +18,7 @@ trait TicketTrait
 
         $ticket = $this->setPaginateForAllTicket($ticket);
 
-        $response = response()->json(new TicketCollection($ticket), 200);
-
-        return $response;
+        return $ticket;
     }
 
     private function setPaginateForAllTicket($ticket)

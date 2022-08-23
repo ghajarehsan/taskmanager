@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\FileController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,11 +16,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/test', function () {
     return view('welcome');
+});
+
+Route::group(['prefix' => 'file'], function () {
+
+    Route::get('index', [FileController::class, 'index'])->name('file.index');
+
+    Route::post('upload', [FileController::class, 'upload'])->name('file.upload');
+
 });
