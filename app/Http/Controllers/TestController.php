@@ -32,7 +32,6 @@ class TestController extends Controller
             'ticket_id' => 1,
             'department_id' => 2,
         ]);
-
     }
 
     public function createDepartmentLevel()
@@ -48,7 +47,7 @@ class TestController extends Controller
 
     public function getCreatedTickets()
     {
-        $ticket = Ticket::where('status_id', 1)
+        $tickets = Ticket::where('status_id', 1)
             ->with('ticketLevels', function ($ticketLevel) {
                 $ticketLevel->with('departmentLevels', function ($depLevel) {
                     $depLevel->with('tasks', function ($task) {
@@ -58,7 +57,18 @@ class TestController extends Controller
             })
             ->get();
 
-        return $ticket;
+        $ticketNumber = 0;
+        $ticketLevelNumber = 0;
+
+
+        foreach ($tickets as $ticket) {
+            $ticketNumber++;
+            foreach ($ticket->ticketLevels as $ticket_levels) {
+                $ticketLevelNumber++;
+            }
+        }
+
+        return $ticketLevelNumber;
     }
 
     public function getAcceptedTickets()

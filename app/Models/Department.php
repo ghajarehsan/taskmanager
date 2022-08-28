@@ -14,6 +14,11 @@ class Department extends Model
         return $this->hasMany(User::class);
     }
 
+    public function levels()
+    {
+        return $this->belongsToMany(Level::class);
+    }
+
     protected $fillable = [
         'name',
         'persian_name'
