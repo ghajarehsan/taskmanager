@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TicketController;
-
+use \App\Http\Controllers\Api\LoginController;
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
@@ -36,6 +36,39 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('upload', [FileController::class, 'upload'])->name('file.upload');
     });
 
+    Route::group(['prefix' => 'auth'], function () {
+
+        Route::post('insertPhoneNumber', [LoginController::class, 'insertPhoneNumber'])->name('auth.insertPhoneNumber');
+
+        Route::post('loginByCode', [LoginController::class, 'loginByCode']);
+
+        Route::post('logout', [LoginController::class, 'logout'])->middleware(['auth:sanctum']);
+
+        Route::post('setPassword', [LoginController::class, 'setPassword'])->middleware(['auth:sanctum']);
+
+        Route::post('loginByConstancePassword', [LoginController::class, 'loginByConstancePassword']);
+
+    });
 });
+
+
+Route::get('/tokens/create', function (Request $request) {
+
+    $user = new \App\Models\User();
+
+    $user = $user->find(2);
+
+    $token = $user->createToken('api token', ['update']);
+
+    return ['token' => $token->plainTextToken];
+});
+
+Route::get('testEhsan2', function () {
+
+    dd(auth()->user()->tokenCan('server:add'));
+
+
+})->middleware('auth:sanctum');
+
 
 
