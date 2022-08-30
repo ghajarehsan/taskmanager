@@ -10,9 +10,11 @@ use App\Models\Ticketlevel;
 use App\Models\Ticketuser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class TestController extends Controller
 {
+
 
     public function createTicket()
     {
@@ -118,5 +120,7 @@ class TestController extends Controller
         ]);
 
     }
+
+
 
 }

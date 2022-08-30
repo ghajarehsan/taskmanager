@@ -63,12 +63,13 @@ Route::get('/tokens/create', function (Request $request) {
     return ['token' => $token->plainTextToken];
 });
 
-Route::get('testEhsan2', function () {
+Route::get('testEhsan', function () {
 
-    dd(auth()->user()->tokenCan('server:add'));
+    dd('sad');
 
 
-})->middleware('auth:sanctum');
+});
+
 
 
 
